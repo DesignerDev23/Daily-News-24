@@ -1,25 +1,16 @@
-// components/NewsList.js
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, FlatList, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 import { getPosts } from '../api/wpApi';
+import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
 
-const NewsList = ({ navigation }) => {
-  const [categories, setCategories] = useState([]);
+const NewsList = () => {
+  const navigation = useNavigation();
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetchCategories();
     fetchPosts();
   }, []);
-
-  const fetchCategories = async () => {
-    try {
-      const categoriesData = ['All', 'Tech', 'Business', 'Crime', 'Politics', 'More'];
-      setCategories(categoriesData);
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    }
-  };
 
   const fetchPosts = async () => {
     try {
@@ -30,29 +21,87 @@ const NewsList = ({ navigation }) => {
     }
   };
 
-  const handlePostPress = (post) => {
-    navigation.navigate('Article', { postId: post.id });
+  const navigateToArticle = (postId) => {
+    navigation.navigate('Article', { postId });
+  };
+
+  const renderRelativeTime = (date) => {
+    return moment(date).fromNow();
   };
 
   const renderPostItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handlePostPress(item)}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-        <Image source={{ uri: item.featuredImage.node.sourceUrl }} style={{ width: 100, height: 100, marginRight: 10 }} />
-        <View>
-          <Text>{item.title}</Text>
-          {/* Add more details or styling as needed */}
-        </View>
+    <TouchableOpacity onPress={() => navigateToArticle(item.id)} style={styles.postContainer}>
+      <View style={styles.imageContainer}>
+        {item.featuredImage && item.featuredImage.node && item.featuredImage.node.sourceUrl && (
+          <Image source={{ uri: item.featuredImage.node.sourceUrl }} style={styles.image} />
+        )}
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.date}>{renderRelativeTime(item.date)}</Text>
       </View>
     </TouchableOpacity>
   );
 
   return (
-    <FlatList
-      data={posts}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={renderPostItem}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={posts}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderPostItem}
+        contentContainerStyle={styles.flatListContainer}
+      />
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#f5f5f5',
+  },
+  flatListContainer: {
+    paddingBottom: 10,
+  },
+  postContainer: {
+    flexDirection: 'row',
+    marginBottom: 18,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    height: 100,
+    overflow: 'hidden',
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 2,
+  },
+  imageContainer: {
+    width: 100,
+    height: 100,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
+  image: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
+  textContainer: {
+    flex: 1,
+    padding: 16,
+    paddingTop: 7,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  date: {
+    color: '#888',
+    fontSize: 14,
+  },
+});
 
 export default NewsList;

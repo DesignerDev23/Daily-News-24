@@ -1,18 +1,63 @@
 // App.js
 import React from 'react';
-import { Text, TouchableOpacity, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/HomeScreen';
 import ArticleScreen from './screens/ArticleScreen';
-import { Icon } from 'react-native-elements';
+import LikedNewsScreen from './screens/LikedNewsScreen';
+import SettingsScreen from './screens/SettingsScreen';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { useFonts } from '@expo-google-fonts/poppins';
 import appStyles from './appStyles';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const roundedAppIcon = require('./assets/head.png');
+
+const HomeStack = () => (
+  <Stack.Navigator initialRouteName="Home">
+    <Stack.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+    <Stack.Screen
+      name="Article"
+      component={ArticleScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+  </Stack.Navigator>
+);
+
+const LikedNewsStack = () => (
+  <Stack.Navigator initialRouteName="LikedNews">
+    <Stack.Screen
+      name="LikedNews"
+      component={LikedNewsScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+  </Stack.Navigator>
+);
+
+const SettingsStack = () => (
+  <Stack.Navigator initialRouteName="Settings">
+    <Stack.Screen
+      name="Settings"
+      component={SettingsScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+  </Stack.Navigator>
+);
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -21,90 +66,52 @@ const App = () => {
   });
 
   if (!fontsLoaded) {
-    return null; // Render loading indicator or empty screen until fonts are loaded
+    return null;
   }
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Feeds">
-        <Stack.Screen
-          name="Feeds"
-          component={HomeScreen}
+      <Tab.Navigator
+        initialRouteName="Home"
+        tabBarOptions={{
+          activeTintColor: '#c4302b',
+          inactiveTintColor: 'gray',
+          labelStyle: {
+            fontSize: 12,
+            fontWeight: 'bold',
+          },
+        }}>
+        <Tab.Screen
+          name="Home"
+          component={HomeStack}
           options={{
-            headerStyle: {
-              backgroundColor: '#fff',
-              height: 100,
-              elevation: 5,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-            },
-            headerTitleStyle: {
-              color: '#c4302b',
-              fontSize: 30,
-              fontFamily: 'poppins-bold',
-            },
-            headerLeft: () => (
-              <TouchableOpacity onPress={() => console.log('Menu pressed')}>
-                <Image source={roundedAppIcon} style={{ width: 35, height: 35, borderRadius: 25, marginLeft: 10, marginRight: 90, ...appStyles.customFont }} />
-              </TouchableOpacity>
-            ),
-            headerTitleContainerStyle: {
-              justifyContent: 'center',
-              alignItems: 'center',
-              color: '#fff',
-            },
-            headerCenter: () => (
-              <Text style={{ color: '#c4302b', fontSize: 20, fontFamily: 'poppins-bold' }}>Feeds</Text>
-            ),
-            headerRight: () => (
-              <TouchableOpacity onPress={() => console.log('Bell pressed')}>
-                <FontAwesomeIcon name="bell-o" color="#000" size={20} style={{ marginRight: 20, ...appStyles.customFont }} />
-              </TouchableOpacity>
+            tabBarLabel: 'Home',
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesomeIcon name="home" color={color} size={size} />
             ),
           }}
         />
-
-        <Stack.Screen
-          name="Article"
-          component={ArticleScreen}
+        <Tab.Screen
+          name="LikedNews"
+          component={LikedNewsStack}
           options={{
-            headerStyle: {
-              backgroundColor: '#fff',
-              height: 100,
-              elevation: 5,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-            },
-            headerTitleStyle: {
-              color: '#c4302b',
-              fontSize: 30,
-              fontFamily: 'poppins-bold',
-            },
-            headerLeft: () => (
-              <TouchableOpacity onPress={() => console.log('Menu pressed')}>
-                <Image source={roundedAppIcon} style={{ width: 35, height: 35, borderRadius: 25, marginLeft: 10, marginRight: 90, ...appStyles.customFont }} />
-              </TouchableOpacity>
-            ),
-            headerTitleContainerStyle: {
-              justifyContent: 'center',
-              alignItems: 'center',
-              color: '#fff',
-            },
-            headerCenter: () => (
-              <Text style={{ color: '#c4302b', fontSize: 20, fontFamily: 'poppins-bold' }}>Feeds</Text>
-            ),
-            headerRight: () => (
-              <TouchableOpacity onPress={() => console.log('Bell pressed')}>
-                <FontAwesomeIcon name="bell-o" color="#000" size={20} style={{ marginRight: 20, ...appStyles.customFont }} />
-              </TouchableOpacity>
+            tabBarLabel: 'Liked',
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesomeIcon name="heart" color={color} size={size} />
             ),
           }}
         />
-      </Stack.Navigator>
+        <Tab.Screen
+          name="Settings"
+          component={SettingsStack}
+          options={{
+            tabBarLabel: 'Settings',
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesomeIcon name="cog" color={color} size={size} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };
