@@ -201,8 +201,22 @@ const App = () => {
           name="Youtube"
           component={YouTubeVideosScreen}
           options={{
-            headerShown: false,
-            tabBarLabel: 'Videos',
+        headerTitle: 'Watch ',
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          fontSize: 20, // You can adjust the font size as needed
+          color: '#c4302b'
+        },
+        headerLeft: () => (
+          // Your rounded image component goes here
+          <Image source={require('./assets/head.png')} style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 15 }} />
+        ),
+        headerRight: () => (
+          // Your bell icon component goes here
+          <FontAwesomeIcon name="bell-o" size={20} color="#c4302b" style={{ marginRight: 20 }} />
+        ),
+      
             tabBarIcon: ({ color, size }) => (
               <FontAwesomeIcon name="youtube-play" color={color} size={size} />
             ),

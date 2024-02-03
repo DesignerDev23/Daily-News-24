@@ -36,7 +36,7 @@ const YouTubeVideosScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Watch</Text>
+      {/* <Text style={styles.header}>Watch</Text> */}
       <FlatList
         data={videos}
         keyExtractor={(item) => item.id}
@@ -64,9 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#c4302b',
-    marginBottom: 4,
     marginTop: 50,
-    height: 40,
     textAlign: 'Left',
   },
   videoContainer: {
