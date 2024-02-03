@@ -36,7 +36,7 @@ const TopNewsSlider = ({ topNews, onPress }) => {
             <View>
               <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 5 }}>{item.title}</Text>
               <Text style={{ color: '#888', fontSize: 13, fontWeight: 'bold', marginBottom: 5 }}>
-                Category: {item.categories.nodes[0].name}
+                 {item.categories.nodes[0].name}
               </Text>
               <Text style={{ color: '#888', fontSize: 12 }}>Posted: {relativeTime}</Text>
             </View>

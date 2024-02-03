@@ -18,6 +18,58 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
+  bottomTabBar: {
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 15,
+    marginHorizontal: 10,
+    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    elevation: 5, // Add elevation for a shadow effect
+  },
+  articleContainer: {
+    flex: 1,
+  },
+  articleFeaturedImage: {
+    height: 200,
+    width: '100%',
+  },
+  articleHeaderContainer: {
+    padding: 20,
+  },
+  articleTitleContainer: {
+    marginBottom: 10,
+  },
+  articleTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  articleDetailsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  articleCategoriesContainer: {
+    flexDirection: 'row',
+    marginRight: 10,
+  },
+  articleCategoriesTitle: {
+    fontWeight: 'bold',
+    marginRight: 5,
+  },
+  articleCategory: {
+    marginRight: 5,
+    color: '#555',
+  },
+  articleTime: {
+    color: '#888',
+  },
+  articleContent: {
+    padding: 20,
+    fontSize: 16,
+    color: '#333',
+  },
   searchBarIconContainer: {
     backgroundColor: '#ccc', // Rounded background color
     borderRadius: 30, // Adjust the border radius as needed

@@ -4,7 +4,7 @@ import { getPosts } from '../api/wpApi';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 
-const NewsList = () => {
+const AllPostsScreen = () => {
   const navigation = useNavigation();
   const [posts, setPosts] = useState([]);
 
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     paddingTop: 7,
   },
   title: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
   },
@@ -104,4 +104,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewsList;
+export default AllPostsScreen;
