@@ -37,7 +37,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <ScrollView>
-      <View style={appStyles.searchBarContainer}>
+      {/* <View style={appStyles.searchBarContainer}>
         <View style={appStyles.searchBarIconContainer}>
           <FontAwesomeIcon name="search" size={12} color="#c4302b" style={appStyles.searchBarIcon} />
         </View>
@@ -47,15 +47,15 @@ const HomeScreen = ({ navigation }) => {
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
         />
-      </View>
+      </View> */}
       {loading ? (
         <Loader />
       ) : (
         <View>
-          <Text style={{ color: '#c4302b', fontSize: 20, fontWeight: 'bold', marginLeft: 20, marginBottom: 20 }}>Breaking News</Text>
+          <Text style={{ color: '#c4302b', fontSize: 22, fontWeight: 'bold', marginLeft: 20, marginBottom: 20, marginTop: 20 }}>Breaking News</Text>
           <TopNewsSlider topNews={posts} onPress={handlePostPress} />
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 20 }}>
-            <Text style={{ color: '#c4302b', fontSize: 20, fontWeight: 'bold', marginLeft: 20 }}>Latest News</Text>
+            <Text style={{ color: '#c4302b', fontSize: 22, fontWeight: 'bold', marginLeft: 20 }}>Latest News</Text>
             <TouchableOpacity style={styles.buttonContainer} onPress={handleViewAllPress}>
               <Text style={styles.buttonText}>View All</Text>
             </TouchableOpacity>
