@@ -78,3 +78,41 @@ export const getPostById = async (id) => {
     throw error;
   }
 };
+
+// api/wpApi.js
+export const getRelatedPosts = async (postId, categories) => {
+  try {
+    const response = await client.query({
+      query: gql`
+        query GetRelatedPosts($postId: ID!, $categories: [String!]) {
+          relatedPosts(postId: $postId, categories: $categories) {
+            edges {
+              node {
+                id
+                title
+                slug
+                categories {
+                  nodes {
+                    name
+                  }
+                }
+                date
+                featuredImage {
+                  node {
+                    sourceUrl
+                  }
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables: { postId, categories },
+    });
+
+    return response.data.relatedPosts.edges.map((edge) => edge.node);
+  } catch (error) {
+    console.error(`Error fetching related posts for post with id ${postId}:`, error);
+    throw error;
+  }
+};

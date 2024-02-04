@@ -39,6 +39,9 @@ const NewsList = () => {
       <View style={styles.textContainer}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.date}>{renderRelativeTime(item.date)}</Text>
+        <Text style={{ color: '#888', fontSize: 13, fontWeight: 'bold', marginBottom: 5 }}>
+                 Category: {item.categories.nodes[0].name}
+              </Text>
       </View>
     </TouchableOpacity>
   );
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
     marginBottom: 18,
     backgroundColor: '#fff',
     borderRadius: 10,
-    height: 100,
+    height: 110,
     overflow: 'hidden',
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: 100,
-    height: 100,
+    height: 110,
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
   },
@@ -94,9 +97,9 @@ const styles = StyleSheet.create({
     paddingTop: 7,
   },
   title: {
-    fontSize: 16,
+    fontSize: 16.5,
+    height: 61,
     fontWeight: 'bold',
-    marginBottom: 8,
   },
   date: {
     color: '#888',

@@ -13,6 +13,7 @@ const Loader = ({ size = 'large', color = '#c4302b', style }) => {
 const styles = StyleSheet.create({
   loaderContainer: {
     flex: 1,
+    top: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },

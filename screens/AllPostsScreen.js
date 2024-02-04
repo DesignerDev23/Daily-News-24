@@ -39,6 +39,9 @@ const AllPostsScreen = () => {
       <View style={styles.textContainer}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.date}>{renderRelativeTime(item.date)}</Text>
+        <Text style={{ color: '#888', fontSize: 13, fontWeight: 'bold', marginBottom: 5 }}>
+                 Category: {item.categories.nodes[0].name}
+              </Text>
       </View>
     </TouchableOpacity>
   );
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 8,
+    height: 54,
   },
   date: {
     color: '#888',
