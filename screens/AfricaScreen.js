@@ -4,19 +4,19 @@ import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react
 import { getNewsByCategory } from '../api/wpApi';
 import { formatDistanceToNow } from 'date-fns';
 
-const BusinessScreen = ({ navigation }) => {
-  const [businessPosts, setBusinessPosts] = useState([]);
+const AfricaScreen = ({ navigation }) => {
+  const [africaPosts, setAfricaPosts] = useState([]);
 
   useEffect(() => {
-    fetchBusinessPosts();
+    fetchAfricaPosts();
   }, []);
 
-  const fetchBusinessPosts = async () => {
+  const fetchAfricaPosts = async () => {
     try {
-      const businessPostsData = await getNewsByCategory('dGVybTo1NzYz'); // Adjust the category name as needed
-      setBusinessPosts(businessPostsData);
+      const africaPostsData = await getNewsByCategory('dGVybToyMTU='); // Adjust the category name as needed
+      setAfricaPosts(africaPostsData);
     } catch (error) {
-      console.error('Error fetching business posts:', error);
+      console.error('Error fetching africa posts:', error);
     }
   };
 
@@ -31,9 +31,9 @@ const BusinessScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.categoryTitle}>Business News</Text>
+      <Text style={styles.categoryTitle}>Africa News</Text>
       <FlatList
-        data={businessPosts}
+        data={africaPosts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handlePostPress(item.id)}>
@@ -87,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BusinessScreen;
+export default AfricaScreen;

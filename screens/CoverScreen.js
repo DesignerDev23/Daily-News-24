@@ -4,19 +4,19 @@ import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react
 import { getNewsByCategory } from '../api/wpApi';
 import { formatDistanceToNow } from 'date-fns';
 
-const AgricultureScreen = ({ navigation }) => {
-  const [agriculturePosts, setAgriculturePosts] = useState([]);
+const CoverScreen = ({ navigation }) => {
+  const [coverPosts, setCoverPosts] = useState([]);
 
   useEffect(() => {
-    fetchAgriculturePosts();
+    fetchCoverPosts();
   }, []);
 
-  const fetchAgriculturePosts = async () => {
+  const fetchCoverPosts = async () => {
     try {
-      const agriculturePostsData = await getNewsByCategory('dGVybToyMTQ='); // Adjust the category name as needed
-      setAgriculturePosts(agriculturePostsData);
+      const coverPostsData = await getNewsByCategory('dGVybToxOA=='); // Adjust the category name as needed
+      setCoverPosts(CoverPostsData);
     } catch (error) {
-      console.error('Error fetching agriculturea posts:', error);
+      console.error('Error fetching cover posts:', error);
     }
   };
 
@@ -31,9 +31,9 @@ const AgricultureScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.categoryTitle}>Agriculture News</Text>
+      <Text style={styles.categoryTitle}>Cover Story News</Text>
       <FlatList
-        data={agriculturePosts}
+        data={coverPosts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handlePostPress(item.id)}>
@@ -87,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AgricultureScreen;
+export default CoverScreen;

@@ -30,32 +30,50 @@ const ArticleScreen = ({ route }) => {
 
   // Handle like button press
  // Handle like button press
-const handleLike = () => {
+ const handleLike = () => {
   setLiked(!isLiked);
 };
 
 // Share on social media
 const shareOnFacebook = () => {
-  const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(post.link)}`;
+  const message = `Check out this post: ${post.title}\n${post.link}`;
+  const imageUrl = post.featuredImage.node.sourceUrl;
+  const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(post.link)}&quote=${encodeURIComponent(message)}&picture=${encodeURIComponent(imageUrl)}`;
   Linking.openURL(url);
 };
 
 const shareOnTwitter = () => {
-  const url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(post.link)}&text=${encodeURIComponent(post.title)}`;
+  const message = `Check out this post: ${post.title}\n${post.link}`;
+  const url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(post.link)}&text=${encodeURIComponent(message)}`;
   Linking.openURL(url);
 };
 
 const shareOnInstagram = () => {
-  // Instagram sharing is limited, usually done through the app
+  // Modify this based on how Instagram sharing works for your specific use case
+  // Instagram sharing is usually done through the app
   // You can redirect the user to your Instagram profile
   Linking.openURL('https://www.instagram.com/your_instagram_profile/');
 };
 
 const shareOnLinkedIn = () => {
-  const url = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(post.link)}&title=${encodeURIComponent(post.title)}`;
+  const message = `Check out this post: ${post.title}\n${post.link}`;
+  const imageUrl = post.featuredImage.node.sourceUrl;
+  const url = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(post.link)}&title=${encodeURIComponent(post.title)}&summary=${encodeURIComponent(message)}&source=${encodeURIComponent(imageUrl)}`;
   Linking.openURL(url);
 };
 
+const shareOnTelegram = () => {
+  const message = `Check out this post: ${post.title}\n${post.link}`;
+  const url = `https://t.me/share/url?url=${encodeURIComponent(post.link)}&text=${encodeURIComponent(message)}`;
+  Linking.openURL(url);
+};
+
+const shareOnWhatsApp = () => {
+  const message = `Check out this post: ${post.title}\n${post.link}`;
+  const imageUrl = post.featuredImage.node.sourceUrl;
+  const url = `whatsapp://send?text=${encodeURIComponent(message)}&media=${encodeURIComponent(imageUrl)}`;
+  Linking.openURL(url);
+};
 
   // Return JSX
   if (!post) {
@@ -111,16 +129,22 @@ const shareOnLinkedIn = () => {
 
       {/* Share Icons */}
       <View style={localStyles.shareIconsContainer}>
-        <TouchableOpacity style={localStyles.shareIcon} onPress={shareOnFacebook}>
-          <Ionicons name="logo-facebook" size={24} color="#4267B2" />
-        </TouchableOpacity>
-        <TouchableOpacity style={localStyles.shareIcon} onPress={shareOnTwitter}>
-          <Ionicons name="logo-twitter" size={24} color="#1DA1F2" />
-        </TouchableOpacity>
-        <TouchableOpacity style={localStyles.shareIcon} onPress={shareOnInstagram}>
-          <Ionicons name="logo-instagram" size={24} color="#E4405F" />
-        </TouchableOpacity>
-      </View>
+    <TouchableOpacity style={localStyles.shareIcon} onPress={shareOnFacebook}>
+      <Ionicons name="logo-facebook" size={24} color="#4267B2" />
+    </TouchableOpacity>
+    <TouchableOpacity style={localStyles.shareIcon} onPress={shareOnTwitter}>
+      <Ionicons name="logo-twitter" size={24} color="#1DA1F2" />
+    </TouchableOpacity>
+    <TouchableOpacity style={localStyles.shareIcon} onPress={shareOnInstagram}>
+      <Ionicons name="logo-instagram" size={24} color="#E4405F" />
+    </TouchableOpacity>
+    <TouchableOpacity style={localStyles.shareIcon} onPress={shareOnTelegram}>
+      <FontAwesomeIcon name="telegram" size={24} color="#0088cc" />
+    </TouchableOpacity>
+    <TouchableOpacity style={localStyles.shareIcon} onPress={shareOnWhatsApp}>
+      <Ionicons name="logo-whatsapp" size={24} color="#25D366" />
+    </TouchableOpacity>
+  </View>
     </ScrollView>
   );
 };

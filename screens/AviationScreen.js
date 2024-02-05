@@ -1,25 +1,27 @@
 // AviationScreen.js
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet, RefreshControl } from 'react-native';
 import { getNewsByCategory } from '../api/wpApi';
 import { formatDistanceToNow } from 'date-fns';
 
 const AviationScreen = ({ navigation }) => {
   const [aviationPosts, setAviationPosts] = useState([]);
-
+  const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
     fetchAviationPosts();
   }, []);
 
   const fetchAviationPosts = async () => {
     try {
+    setRefreshing(true);
       const aviationPostsData = await getNewsByCategory('dGVybTo1NjQ='); // Adjust the category name as needed
       setAviationPosts(aviationPostsData);
     } catch (error) {
       console.error('Error fetching aviation posts:', error);
+    } finally {
+      setRefreshing(false);
     }
   };
-
   const formatPostDate = (date) => {
     return formatDistanceToNow(new Date(date), { addSuffix: true });
   };
@@ -48,8 +50,15 @@ const AviationScreen = ({ navigation }) => {
               <Text style={styles.postDate}>{formatPostDate(item.date)}</Text>
               {/* Add other fields as needed */}
             </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
         )}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={fetchAviationPosts}
+            colors={['#c4302b']}
+          />
+        }
       />
     </View>
   );

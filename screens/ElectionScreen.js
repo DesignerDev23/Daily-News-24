@@ -4,19 +4,19 @@ import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react
 import { getNewsByCategory } from '../api/wpApi';
 import { formatDistanceToNow } from 'date-fns';
 
-const AviationScreen = ({ navigation }) => {
-  const [aviationPosts, setAviationPosts] = useState([]);
+const ElectionScreen = ({ navigation }) => {
+  const [electionPosts, setElectionPosts] = useState([]);
 
   useEffect(() => {
-    fetchAviationPosts();
+    fetchElectionPosts();
   }, []);
 
-  const fetchAviationPosts = async () => {
+  const fetchElectionPosts = async () => {
     try {
-      const aviationPostsData = await getNewsByCategory('dGVybTo1NjQ='); // Adjust the category name as needed
-      setAviationPosts(aviationPostsData);
+      const electionPostsData = await getNewsByCategory('dGVybTo2NDE1'); // Adjust the category name as needed
+      setElectionPosts(ElectionPostsData);
     } catch (error) {
-      console.error('Error fetching aviation posts:', error);
+      console.error('Error fetching Election posts:', error);
     }
   };
 
@@ -31,9 +31,9 @@ const AviationScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.categoryTitle}>Aviation Posts</Text>
+      <Text style={styles.categoryTitle}>2023 Election News</Text>
       <FlatList
-        data={aviationPosts}
+        data={electionPosts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handlePostPress(item.id)}>
@@ -87,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AviationScreen;
+export default ElectionScreen;

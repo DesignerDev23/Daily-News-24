@@ -9,7 +9,9 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#c4302b"
+      "backgroundColor": "#c4302b",
+      "fadeInDuration": 4000,
+      "fadeOutDuration": 4000
     },
     "assetBundlePatterns": [
       "**/*"

@@ -36,6 +36,7 @@
     "react-native-screens": "~3.29.0",
     "react-native-scrollable-tab-view": "^1.0.0",
     "react-native-shadow": "^1.2.2",
+    "react-native-share": "^10.0.2",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "14.1.0",
     "react-native-swiper": "^1.6.0",
