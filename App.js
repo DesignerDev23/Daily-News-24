@@ -19,6 +19,11 @@ import Sidebar from './Sidebar';
 import AboutUsScreen from './screens/AboutUsScreen';
 import ContactUsScreen from './screens/ContactUsScreen';
 import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
+import CategoriesScreen from './screens/CategoriesScreen';
+import NewsListScreen from './screens/NewsListScreen';
+import AviationScreen from './screens/AviationScreen';
+import BusinessScreen from './screens/BusinessScreen';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -74,6 +79,18 @@ const LikedNewsStack = () => (
   </Stack.Navigator>
 );
 
+const NewsListStack = () => (
+  <Stack.Navigator initialRouteName="NewsListScreen">
+    <Stack.Screen
+      name="NewsListScreen"
+      component={NewsListScreen}
+      options={({ route }) => ({
+        title: `News List for ${route.params.category.name}`,
+      })}
+    />
+  </Stack.Navigator>
+);
+
 const SettingsStack = () => (
   <Stack.Navigator initialRouteName="Settings">
     <Stack.Screen
@@ -115,6 +132,7 @@ const AllPostsStack = () => (
 );
 
 
+
 const YouTubeStack = () => (
   <Stack.Navigator>
     <Stack.Screen
@@ -127,12 +145,20 @@ const YouTubeStack = () => (
   </Stack.Navigator>
 );
 
+const CategoriesStack = () => (
+  <Stack.Navigator initialRouteName="Categories" screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Categories" component={CategoriesScreen} />
+    <Stack.Screen name="Aviation" component={AviationScreen} />
+    <Stack.Screen name="Business" component={BusinessScreen} />
+  </Stack.Navigator>
+);
+
 const MainTabs = () => (
   <Tab.Navigator
-    initialRouteName="Home"
+    initialRouteName="Feed"
     tabBarOptions={{
-      activeTintColor: '#c4302b', // Active tab icon color
-      inactiveTintColor: 'gray',  // Inactive tab icon color
+      activeTintColor: '#c4302b',
+      inactiveTintColor: 'gray',
       fontWeight: '600',
     }}
   >
@@ -140,7 +166,6 @@ const MainTabs = () => (
       name="Feed"
       component={HomeStack}
       options={{
-        headerShown: false,
         tabBarLabel: 'Home',
         tabBarIcon: ({ color, size }) => (
           <FontAwesomeIcon name="home" color={color} size={size} />
@@ -151,7 +176,6 @@ const MainTabs = () => (
       name="AllPostsScreen"
       component={AllPostsStack}
       options={{
-        headerShown: false,
         tabBarLabel: 'All Posts',
         tabBarIcon: ({ color, size }) => (
           <FontAwesomeIcon name="bars" color={color} size={size} />
@@ -162,10 +186,20 @@ const MainTabs = () => (
       name="YouTube"
       component={YouTubeStack}
       options={{
-        headerShown: false,
         tabBarLabel: 'Videos',
         tabBarIcon: ({ color, size }) => (
           <FontAwesomeIcon name="play-circle" color={color} size={size} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Categories"
+      component={CategoriesStack}
+      options={{
+        headerShown: false,
+        tabBarLabel: 'Categories',
+        tabBarIcon: ({ color, size }) => (
+          <FontAwesomeIcon name="compass" color={color} size={size} />
         ),
       }}
     />
@@ -193,6 +227,7 @@ const App = () => {
         <Drawer.Screen name="AboutUs" component={AboutUsScreen} />
         <Drawer.Screen name="ContactUs" component={ContactUsScreen} />
         <Drawer.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
+        <Drawer.Screen name="Aviation" component={AviationScreen} />
     </Drawer.Navigator>
   </NavigationContainer>
   );

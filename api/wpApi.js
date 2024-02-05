@@ -116,3 +116,75 @@ export const getRelatedPosts = async (postId, categories) => {
     throw error;
   }
 };
+
+// api/wpApi.js
+export const getCategories = async () => {
+  try {
+    const response = await client.query({
+      query: gql`
+        query GetCategories {
+          categories {
+            nodes {
+              id
+              name
+            }
+          }
+        }
+      `,
+    });
+
+    return response.data.categories.nodes;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    throw error;
+  }
+};
+
+
+export const getNewsByCategory = async (categoryId) => {
+  try {
+    const response = await client.query({
+      query: gql`
+        query GetNewsByCategory($categoryId: ID!) {
+          category(id: $categoryId) {
+            name
+            posts {
+              edges {
+                node {
+                  id
+                  title
+                  slug
+                  date
+                  featuredImage {
+                    node {
+                      sourceUrl
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables: { categoryId },
+    });
+
+    return response.data.category.posts.edges.map((edge) => edge.node);
+  } catch (error) {
+    console.error(`Error fetching news by category with id ${categoryId}:`, error);
+    throw error;
+  }
+};
+
+export const GetPostsByCategory = gql`
+  query GetPostsByCategory($category: String!) {
+    posts(where: { category: { name: $category } }) {
+      nodes {
+        id
+        title
+        content
+        # Add other fields you need
+      }
+    }
+  }
+`;
