@@ -14,7 +14,7 @@ const CelebrityScreen = ({ navigation }) => {
   const fetchCelebrityPosts = async () => {
     try {
       const celebrityPostsData = await getNewsByCategory('dGVybTo1OTgw'); // Adjust the category name as needed
-      setcelebrityPosts(celebrityPostsData);
+      setCelebrityPosts(celebrityPostsData);
     } catch (error) {
       console.error('Error fetching celebrity posts:', error);
     }

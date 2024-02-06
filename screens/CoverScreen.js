@@ -14,7 +14,7 @@ const CoverScreen = ({ navigation }) => {
   const fetchCoverPosts = async () => {
     try {
       const coverPostsData = await getNewsByCategory('dGVybToxOA=='); // Adjust the category name as needed
-      setCoverPosts(CoverPostsData);
+      setCoverPosts(coverPostsData);
     } catch (error) {
       console.error('Error fetching cover posts:', error);
     }

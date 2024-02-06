@@ -16,29 +16,7 @@ const ContactUsScreen = () => {
       <Text style={styles.website}>
       Phone: +23480 800 80 220
       </Text>
-        {/* Map */}
-        <Text style={styles.title}>Location</Text>
-      <MapView
-        style={styles.map}
-        region={{
-          latitude: 11.947084,  // Replace with the actual latitude of your location
-          longitude: 8.510862,  // Replace with the actual longitude of your location
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      >
-        <Marker
-          coordinate={{
-            latitude: 11.947084,  // Replace with the actual latitude of your location
-            longitude: 8.510862,  // Replace with the actual longitude of your location
-          }}
-          title="Corporate Address"
-          description="Daily News 24 Office"
-        />
-      </MapView>
-      
-      <Text style={styles.line}></Text>
-      {/* Add the rest of your content here */}
+ 
     </ScrollView>
   );
 };

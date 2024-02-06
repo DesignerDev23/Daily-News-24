@@ -14,7 +14,7 @@ const ElectionScreen = ({ navigation }) => {
   const fetchElectionPosts = async () => {
     try {
       const electionPostsData = await getNewsByCategory('dGVybTo2NDE1'); // Adjust the category name as needed
-      setElectionPosts(ElectionPostsData);
+      setElectionPosts(electionPostsData);
     } catch (error) {
       console.error('Error fetching Election posts:', error);
     }
