@@ -130,7 +130,7 @@ const localStyles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   categoryItem: {
-    flexBasis: '20%', // Adjust as needed based on your design
+    flexBasis: '18%', // Adjust as needed based on your design
     aspectRatio: 1, // This ensures the width and height are the same
     alignItems: 'center',
     justifyContent: 'center',
